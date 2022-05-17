@@ -1,0 +1,120 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://tiles/tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://CreateTilemapColliders.gd" type="Script" id=3]
+[ext_resource path="res://floor.gd" type="Script" id=4]
+[ext_resource path="res://Player.gd" type="Script" id=5]
+[ext_resource path="res://FollowBody.gd" type="Script" id=6]
+[ext_resource path="res://Enemy.gd" type="Script" id=7]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 8.06226
+
+[sub_resource type="CircleShape2D" id=3]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="Floor" type="TileMap" parent="Navigation2D"]
+mode = 1
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 64, 32 )
+cell_tile_origin = 2
+format = 1
+tile_data = PoolIntArray( -720898, 0, 0, -720897, 0, 0, -786432, 0, 0, -786431, 0, 0, -786430, 0, 0, -655362, 0, 0, -655361, 0, 0, -720896, 0, 0, -720895, 0, 0, -720894, 0, 0, -589826, 0, 0, -589825, 0, 0, -655360, 0, 0, -655359, 0, 0, -655358, 0, 0, -524290, 0, 0, -524289, 0, 0, -589824, 0, 0, -589823, 0, 0, -589822, 0, 0, -458754, 0, 0, -458753, 0, 0, -393218, 0, 0, -393217, 0, 0, -327682, 0, 0, -327681, 0, 0, -262146, 0, 0, -262145, 0, 0, -196612, 1, 0, -196611, 1, 0, -196610, 1, 0, -196609, 1, 0, -262144, 1, 0, -131076, 1, 0, -131073, 0, 0, -196608, 1, 0, -65540, 1, 0, -65537, 0, 0, -131072, 1, 0, -4, 1, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 1, 0, 65532, 1, 0, 65533, 1, 0, 65534, 1, 0, 65535, 1, 0, 0, 1, 0 )
+script = ExtResource( 4 )
+
+[node name="YSort" type="YSort" parent="Navigation2D"]
+
+[node name="Backwall" type="TileMap" parent="Navigation2D/YSort"]
+mode = 1
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 64, 32 )
+cell_tile_origin = 2
+cell_y_sort = true
+format = 1
+tile_data = PoolIntArray( -851972, 2, 0, -851971, 2, 0, -851970, 2, 0, -851969, 2, 0, -917504, 2, 0, -917503, 2, 0, -917502, 2, 0, -786436, 2, 0, -851966, 2, 0, -720900, 2, 0, -786430, 2, 0, -655364, 2, 0, -720894, 2, 0, -589828, 2, 0, -655358, 2, 0, -524292, 2, 0, -524289, 2, 0, -589824, 2, 0, -589823, 2, 0, -589822, 2, 0, -458756, 2, 0, -458753, 2, 0, -393220, 2, 0, -393217, 2, 0, -327686, 2, 0, -327685, 2, 0, -327684, 2, 0, -327681, 2, 0, -393216, 2, 0, -262150, 2, 0, -327680, 2, 0, -196614, 2, 0, -262144, 2, 0, -131078, 2, 0, -196608, 2, 0, -65542, 2, 0, -131072, 2, 0, -6, 2, 0, -65536, 2, 0, 65530, 2, 0, 65531, 2, 0, 65532, 2, 0, 65533, 2, 0, 65534, 2, 0, 65535, 2, 0, 0, 2, 0 )
+
+[node name="Playersort" type="YSort" parent="Navigation2D/YSort"]
+position = Vector2( 402, -109 )
+
+[node name="PlayerSprite" type="Sprite" parent="Navigation2D/YSort/Playersort"]
+position = Vector2( -70, -78 )
+scale = Vector2( 0.25, 0.703125 )
+texture = ExtResource( 2 )
+centered = false
+offset = Vector2( -33, -32.7111 )
+script = ExtResource( 6 )
+PathToBody = NodePath("../PlayerBody")
+Offset = Vector2( 0, -18 )
+
+[node name="PlayerBody" type="KinematicBody2D" parent="Navigation2D/YSort/Playersort"]
+position = Vector2( -70, -60 )
+script = ExtResource( 5 )
+BaseSpeed = 30.0
+BaseDamage = 3
+MaxHealth = 100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/YSort/Playersort/PlayerBody"]
+shape = SubResource( 1 )
+
+[node name="EnemyYsort" type="YSort" parent="Navigation2D/YSort"]
+
+[node name="Enemy" type="Sprite" parent="Navigation2D/YSort/EnemyYsort"]
+position = Vector2( -3, -51 )
+scale = Vector2( 0.25, 1 )
+texture = ExtResource( 2 )
+script = ExtResource( 6 )
+PathToBody = NodePath("../EnemyBody")
+Offset = Vector2( 0, -27 )
+
+[node name="EnemyBody" type="KinematicBody2D" parent="Navigation2D/YSort/EnemyYsort"]
+position = Vector2( -3, -24 )
+collision_layer = 2
+script = ExtResource( 7 )
+NavNode = NodePath("../../..")
+LineNode = NodePath("../../../../Line2D")
+PlayerNode = NodePath("../../Playersort/PlayerBody")
+PatrolPointNodes = [ NodePath("../../../../PatrolPoint"), NodePath("../../../../PatrolPoint2"), NodePath("../../../../PatrolPoint3"), NodePath("../../../../PatrolPoint4"), NodePath("../../../../PatrolPoint5") ]
+MaxHealth = 10
+Speed = 30.0
+BaseDamage = 10
+MaxVisionDistance = 10.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/YSort/EnemyYsort/EnemyBody"]
+position = Vector2( 0, -1 )
+shape = SubResource( 2 )
+
+[node name="VisionArea" type="Area2D" parent="Navigation2D/YSort/EnemyYsort/EnemyBody"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/YSort/EnemyYsort/EnemyBody/VisionArea"]
+shape = SubResource( 3 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 5.0
+
+[node name="PatrolPoint" type="Node2D" parent="."]
+position = Vector2( -130, -47 )
+
+[node name="PatrolPoint2" type="Node2D" parent="."]
+position = Vector2( 0, 16 )
+
+[node name="PatrolPoint3" type="Node2D" parent="."]
+position = Vector2( 349, -94 )
+
+[node name="PatrolPoint4" type="Node2D" parent="."]
+position = Vector2( 447, -143 )
+
+[node name="PatrolPoint5" type="Node2D" parent="."]
+position = Vector2( 320, -214 )
+
+[connection signal="body_entered" from="Navigation2D/YSort/EnemyYsort/EnemyBody/VisionArea" to="Navigation2D/YSort/EnemyYsort/EnemyBody" method="_on_VisionArea_body_entered"]
+[connection signal="body_exited" from="Navigation2D/YSort/EnemyYsort/EnemyBody/VisionArea" to="Navigation2D/YSort/EnemyYsort/EnemyBody" method="_on_VisionArea_body_exited"]
