@@ -14,13 +14,19 @@ onready var Player:KinematicBody2D = get_node(str(PlayerNode))
 
 var PatrolPoints:Array
 var path: PoolVector2Array
+var AttackTimer: Timer
 
 var LineofSight:RayCast2D = RayCast2D.new()
 
 export var MaxHealth:int
 export var Speed:float
 export var BaseDamage:int
-export var MaxVisionDistance:float
+export var PatrolVisionDistance:float
+export var AttackVisionDistance:float
+export var AttackCooldown:float
+export var minPlayerdistance:float
+
+var VisionShape: CollisionShape2D
 
 var playerwithinrange:bool = false
 
@@ -28,9 +34,7 @@ var currentPointIndex = 0
 	
 var currentpatrolpoint = 0
 
-func _aistate_mouse_update():
-	if currentPointIndex == 0:
-		Nav.get_simple_path(global_position, get_global_mouse_position())
+var heading: Vector2
 
 func _aistate_patrol_begin():
 	currentPointIndex = 0
@@ -59,18 +63,42 @@ func _aistate_patrol_update():
 		if path_to_point.size() > 0:
 			path = path_to_point
 		Line.points = path
+	if path.size() > 0:
+		if global_position.distance_to(Player.global_position) > minPlayerdistance:
+			heading = (path[currentPointIndex] - global_position).normalized()
+			move_and_slide(heading*5*Speed)
+			if global_position.distance_to(path[currentPointIndex]) < $CollisionShape2D.shape.radius && currentPointIndex<path.size()-1:
+				currentPointIndex += 1
+		else:
+			move_and_slide(heading*-3*Speed)
 		
 func _aistate_patrol_end():
 	currentPointIndex = 0
-	path.empty()
+	path.resize(0)
 	
 func _aistate_attack_begin():
-	pass
+	VisionShape.shape.radius = AttackVisionDistance
+	path = Nav.get_simple_path(global_position, Player.global_position)
+	
 func _aistate_attack_update():
-	pass
+	if playerwithinrange == true:
+		if global_position.distance_to(path[currentPointIndex]) < $CollisionShape2D.shape.radius + 5:
+			currentPointIndex = 0
+			var path_to_player = Nav.get_simple_path(global_position, Player.global_position,false)
+			if path_to_player.size() > 0:
+				path = path_to_player
+				currentPointIndex = 1
+			Line.points = path
+	if path.size() > 0:
+		heading = (path[currentPointIndex] - global_position).normalized()
+		move_and_slide(heading*5*Speed)
+		if global_position.distance_to(path[currentPointIndex]) < $CollisionShape2D.shape.radius && currentPointIndex<path.size()-1:
+			currentPointIndex += 1
+		
 func _aistate_attack_end():
 	currentPointIndex = 0
-	path.empty()
+	path.resize(0)
+	VisionShape.shape.radius = PatrolVisionDistance
 
 var AIStateMachine = StateMachine.new()
 var PatrolState:State = State.new()
@@ -80,32 +108,34 @@ var SearchState:State = State.new()
 func _ready():
 	LineofSight.add_exception(self)
 	
-	var VisionShape = get_node("VisionArea/CollisionShape2D")
-	VisionShape.shape.radius = MaxVisionDistance
+	VisionShape = get_node("VisionArea/CollisionShape2D")
+	VisionShape.shape.radius = PatrolVisionDistance
 
-	for path in PatrolPointNodes:
-		PatrolPoints.append(get_node(path))
+	for point in PatrolPointNodes:
+		PatrolPoints.append(get_node(point))
+	
 	PatrolState.begin_state = funcref(self,"_aistate_patrol_begin")
 	PatrolState.update_state = funcref(self,"_aistate_patrol_update")
 	PatrolState.exit_state = funcref(self,"_aistate_patrol_end")
+	
+	AttackState.begin_state = funcref(self,"_aistate_attack_begin")
+	AttackState.update_state = funcref(self,"_aistate_attack_update")
+	AttackState.exit_state = funcref(self,"_aistate_attack_end")
+	
 	AIStateMachine.change_state(PatrolState)
 
-func _process(delta):
+func _process(_delta):
 	AIStateMachine.update_state()
-	if(path.size() > 0):
-		var heading = (path[currentPointIndex] - global_position).normalized()
-		move_and_slide(heading*5*Speed)
-		if global_position.distance_to(path[currentPointIndex]) < $CollisionShape2D.shape.radius && currentPointIndex<path.size()-1:
-			currentPointIndex += 1
 
 
 func _on_VisionArea_body_entered(body):
 	if body == Player:
 		playerwithinrange = true
+		AIStateMachine.change_state(AttackState)
 		print("player visible")
 
 
 func _on_VisionArea_body_exited(body):
 	if body == Player:
 		playerwithinrange = false
-		print("player out of range")
+		print("player escaped")

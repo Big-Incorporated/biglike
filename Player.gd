@@ -13,9 +13,10 @@ func _ready():
 	movementVector = Vector2(0,0);
 	pass # Replace with function body.
 
+func damage(amount):
+	health -= amount;
 
-
-func _process(delta):
+func _process(_delta):
 	if(Input.is_key_pressed(KEY_W)):
 		movementVector.y = -5;
 	elif(Input.is_key_pressed(KEY_S)):

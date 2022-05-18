@@ -84,7 +84,10 @@ PatrolPointNodes = [ NodePath("../../../../PatrolPoint"), NodePath("../../../../
 MaxHealth = 10
 Speed = 30.0
 BaseDamage = 10
-MaxVisionDistance = 10.0
+PatrolVisionDistance = 100.0
+AttackVisionDistance = 200.0
+AttackCooldown = 3.0
+minPlayerdistance = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Navigation2D/YSort/EnemyYsort/EnemyBody"]
 position = Vector2( 0, -1 )
