@@ -51,20 +51,22 @@ func _input(event):
 					KEY_A: movementVector.x += 5
 					KEY_D: movementVector.x -= 5
 	elif event is InputEventMouseButton:
-		if event.button_index == BUTTON_LEFT && event.pressed:
-			inventory[inventoryindex].shoot()
-		elif event.button_index == BUTTON_WHEEL_UP  && event.pressed:
-			if inventoryindex >0:
-				inventoryindex-=1
-			else:
-				inventoryindex = inventory.size() -1
-			swap_weapon()
-		elif event.button_index == BUTTON_WHEEL_DOWN  && event.pressed:
-			if inventoryindex < inventory.size()-1:
-				inventoryindex += 1
-			else:
-				inventoryindex = 0
-			swap_weapon()
+		if event.pressed:
+			match event.button_index:
+				BUTTON_LEFT:
+					inventory[inventoryindex].shoot()
+				BUTTON_WHEEL_UP:
+					if inventoryindex >0:
+						inventoryindex-=1
+					else:
+						inventoryindex = inventory.size() -1
+					swap_weapon()
+				BUTTON_WHEEL_DOWN:
+					if inventoryindex < inventory.size()-1:
+						inventoryindex += 1
+					else:
+						inventoryindex = 0
+					swap_weapon()
 func _process(_delta):
 	ModelBase.rotation.y = -get_angle_to(get_global_mouse_position())
 	
