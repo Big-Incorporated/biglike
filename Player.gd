@@ -37,18 +37,19 @@ func _ready():
 
 func _input(event):
 	if event is InputEventKey:
-		if event.scancode == KEY_W and event.pressed:
-			movementVector.y = -5
-		elif event.scancode == KEY_S and event.pressed:
-			movementVector.y = 5
-		elif !Input.is_key_pressed(KEY_W) && !Input.is_key_pressed(KEY_S):
-			movementVector.y = 0
-		if event.scancode == KEY_A and event.pressed:
-			movementVector.x = -5
-		elif event.scancode == KEY_D and event.pressed:
-			movementVector.x = 5
-		elif !Input.is_key_pressed(KEY_A) && !Input.is_key_pressed(KEY_D):
-			movementVector.x = 0
+		if !event.echo:
+			if event.pressed:
+				match event.scancode:
+					KEY_W: movementVector.y -= 5
+					KEY_S: movementVector.y += 5
+					KEY_A: movementVector.x -= 5
+					KEY_D: movementVector.x += 5
+			else:
+				match event.scancode:
+					KEY_W: movementVector.y += 5
+					KEY_S: movementVector.y -= 5
+					KEY_A: movementVector.x += 5
+					KEY_D: movementVector.x -= 5
 	elif event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT && event.pressed:
 			inventory[inventoryindex].shoot()

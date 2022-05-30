@@ -82,6 +82,10 @@ config/icon="res://icon.png"
 
 GlobalPlayer="*res://global_player.gd"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/terminal/plugin.cfg" )
+
 [input]
 
 ui_accept={

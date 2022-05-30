@@ -19,5 +19,5 @@ shape = SubResource( 1 )
 current = true
 editor_draw_drag_margin = true
 
-[node name="Model" type="Node2D" parent="." instance=ExtResource( 2 )]
+[node name="Model" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, -15 )
