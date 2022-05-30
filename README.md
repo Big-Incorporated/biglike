@@ -12,8 +12,8 @@ Basically nothing. There is a little bit of ai code i wrote, basic movement and 
 
 ### What to do (code stuff) (also short term so i dont get overwhelmed)
 - [x] level collision generation stuff, proper layering
-- [ ] finish basic ai patterns
-- [ ] add in some weapons and work on attacks and killing things
+- [x] finish basic ai patterns
+- [x] add in some weapons and work on attacks and killing things
 - [ ] add in a few unique enemies and their patterns
 - [ ] finish movement for starting character 
 
