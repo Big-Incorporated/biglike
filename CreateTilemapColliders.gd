@@ -4,6 +4,7 @@ extends Navigation2D# this is put on a navigation2d object, so it automatically 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	for child in get_children(): #loop through all child nodes
 		if child is TileMap && child.get_meta("tilemaptype") == "floor": #check if the child is a tilemap, and if i have set it to be a floor (this is set in the floor.gd script)
 			var newtilemap = TileMap.new() #make new tilemap
@@ -11,6 +12,8 @@ func _ready():
 			newtilemap.tile_set = child.tile_set
 			newtilemap.cell_size = child.cell_size
 			newtilemap.mode = child.mode
+			newtilemap.centered_textures = child.centered_textures
+			newtilemap.cell_tile_origin = child.cell_tile_origin
 			# these three lines above make the new tileset act exactly like the floor tileset (use same tileset, same tile size, make it isometric)
 			var tiles = child.get_used_cells()#get list of all the non-empty cells on the tilemap
 			var collidertile = newtilemap.tile_set.find_tile_by_name("Collider")# get the id of the collider tile that will stop things from going through walls
@@ -27,4 +30,6 @@ func _ready():
 			self.add_child(newtilemap)# add the new tilemap into the actual game
 			move_child(newtilemap,0)# make it first child (just so it will be drawn under floor when visible)
 			newtilemap.visible = false;
+
+
 

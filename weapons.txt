@@ -1,0 +1,3 @@
+Change so that the ShotgunFull scene is called playermodel, change shotgun node to weapon, make weapon empty by default
+
+create functon in player to set the weapon, 
