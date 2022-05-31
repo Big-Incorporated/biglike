@@ -35,6 +35,18 @@ tile_data = PoolIntArray( -1638404, 2, 0, -1638403, 2, 0, -1638402, 2, 0, -16384
 [node name="PlayerBody" parent="Navigation2D/YSort" instance=ExtResource( 5 )]
 
 [node name="EnemyBody" parent="Navigation2D/YSort" instance=ExtResource( 2 )]
+AttackRange = 20.0
+ChaseRange = 40.0
+
+[node name="EnemyBody2" parent="Navigation2D/YSort" instance=ExtResource( 2 )]
+position = Vector2( 635, -336 )
+AttackRange = 20.0
+ChaseRange = 40.0
+
+[node name="EnemyBody3" parent="Navigation2D/YSort" instance=ExtResource( 2 )]
+position = Vector2( 606, -90 )
+AttackRange = 20.0
+ChaseRange = 40.0
 
 [node name="Line2D" type="Line2D" parent="."]
 width = 5.0

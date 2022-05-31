@@ -19,6 +19,7 @@ func damage(var amount:int):
 	if CurrentHealth <= 0:
 		CurrentHealth = 0
 		alive = false
+		emit_signal("died")
 		queue_free()
 
 func heal(var amount:int):

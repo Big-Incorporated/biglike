@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/pistol.gltf-66c64c8f13035f01bbc3a327c56bee5f.scn"
+path="res://.import/hand_cannon.gltf-178335cecda5db09fe23ffb8bcc2d6c0.scn"
 
 [deps]
 
-source_file="res://models/weapons/pistol/pistol.gltf"
-dest_files=[ "res://.import/pistol.gltf-66c64c8f13035f01bbc3a327c56bee5f.scn" ]
+source_file="res://models/weapons/pistol/hand_cannon.gltf"
+dest_files=[ "res://.import/hand_cannon.gltf-178335cecda5db09fe23ffb8bcc2d6c0.scn" ]
 
 [params]
 
@@ -18,7 +18,7 @@ nodes/custom_script=""
 nodes/storage=0
 nodes/use_legacy_names=false
 materials/location=1
-materials/storage=1
+materials/storage=2
 materials/keep_on_reimport=true
 meshes/octahedral_compression=true
 meshes/compress=4286

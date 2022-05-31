@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://models/weapons/pistol/pistol.gltf" type="PackedScene" id=1]
-
-[node name="weapon" instance=ExtResource( 1 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.574536, 0.282999, 0.254689 )
-
-[node name="cube2" parent="Node2/bone" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98023e-08, -0.15, 0.10625 )

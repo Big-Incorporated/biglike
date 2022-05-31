@@ -10,18 +10,22 @@ var ModelScene
 
 
 func _ready():
-	set_weapon_info(3,60,10)
-	ModelScene = preload("res://models/weapons/pistol/pistol.tscn")
+	set_weapon_info(damage,60,7)
+	ModelScene = preload("res://models/weapons/pistol/hand_cannon.tscn")
 	parent = get_parent()
 
 func shoot():
-	if Anim.is_playing():
+	if Anim.current_animation == "reload":
 		return
-	else:
-		Anim.play("animationpistolshoot")
+	Anim.stop()
+	Anim.play("shoot",-1,3.0)
 	
 	if parent == globalplayer:
 		shootbullet(damage,global_position,parent.camera.get_camera_screen_center(),get_angle_to(get_global_mouse_position()))
 	else:
 		shootbullet(damage,global_position,parent.global_position,get_angle_to(parent.Target.global_position))
 	.shoot()
+
+func reload():
+	Anim.play("reload")
+	.reload()
