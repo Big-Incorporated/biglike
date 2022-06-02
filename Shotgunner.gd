@@ -10,3 +10,4 @@ func _attack():
 
 func die():
 	$Shotgun.queue_free()
+	.die()

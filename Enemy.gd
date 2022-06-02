@@ -3,10 +3,8 @@ extends Damageable
 class_name Enemy
 
 export var NavNode:NodePath
-export var LineNode:NodePath
 
 onready var Nav:Navigation2D = get_node(NavNode)
-onready var Line:Line2D = get_node(LineNode)
 var Target:Damageable
 
 var path: PoolVector2Array
@@ -34,43 +32,38 @@ var heading: Vector2
 func _aistate_idle_begin():
 	pass
 func _aistate_idle_update():
-	if Target != null:
-		if Target.global_position.distance_to(global_position) <= ChaseRange:
-			AIStateMachine.change_state(ChaseState)
+	if Target.global_position.distance_to(global_position) <= ChaseRange:
+		AIStateMachine.change_state(ChaseState)
 func _aistate_idle_end():
 	pass
  
 func _aistate_attack_begin():
 	pass
 func _aistate_attack_update():
-	if Target != null:
-		_attack()
-		if Target.global_position.distance_to(global_position) > AttackRange &&  Target.global_position.distance_to(global_position) <= ChaseRange:
-			AIStateMachine.change_state(ChaseState)
+	_attack()
+	if Target.global_position.distance_to(global_position) > AttackRange &&  Target.global_position.distance_to(global_position) <= ChaseRange:
+		AIStateMachine.change_state(ChaseState)
 func _aistate_attack_end():
 	pass
 
 func _aistate_chase_begin():
-	if Target != null:
+	var p = Nav.get_simple_path(global_position,Target.global_position,false)
+	path = p
+func _aistate_chase_update():
+	if Target.global_position.distance_to(global_position) <= AttackRange :
+		AIStateMachine.change_state(AttackState)
+	if global_position.distance_to(path[pathindex]) < $CollisionShape2D.shape.radius && pathindex < path.size():
+		pathindex = 1
 		var p = Nav.get_simple_path(global_position,Target.global_position,false)
 		path = p
-		Line.points = path
-func _aistate_chase_update():
-	if Target != null:
-		if Target.global_position.distance_to(global_position) <= AttackRange :
-			AIStateMachine.change_state(AttackState)
-		if global_position.distance_to(path[pathindex]) < $CollisionShape2D.shape.radius && pathindex < path.size():
-			pathindex = 1
-			var p = Nav.get_simple_path(global_position,Target.global_position,false)
-			path = p
-			Line.points = path
-		heading = global_position.direction_to(path[pathindex])
-		move_and_slide(heading*Speed*5)
+	heading = global_position.direction_to(path[pathindex])
+	move_and_slide(heading*Speed*5)
 		
 func _aistate_chase_end():
 	pass
 
 func _ready():
+	
 	add_to_group("enemies")
 	
 	if !is_connected("damaged",self,"_on_EnemyBody_damaged"):

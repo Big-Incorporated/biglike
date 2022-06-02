@@ -48,6 +48,3 @@ ChaseRange = 40.0
 position = Vector2( 798, -2 )
 AttackRange = 20.0
 ChaseRange = 40.0
-
-[node name="Line2D" type="Line2D" parent="."]
-width = 5.0
