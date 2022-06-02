@@ -1,6 +1,7 @@
 BIG INC INCORPORATED 2022
 
 our bals (more bals to cum):
-	Basil - main programmer, occasionally dips toes into art (dont let them do that any more please)
+	Basil - main programmer, occasionally dips toes into art (dont let it do that any more please)
+	Mae - programming
 	Jordan - lots of stuff, modeling/texturing/animation/sound effects
-	Grace - modeling, concept and game art
+	Grace - modeling, animation, concept and game art
