@@ -13,6 +13,12 @@ signal damaged
 signal healed
 signal died
 
+func die():
+	queue_free()
+
+func _exit_tree():
+	die()
+
 func damage(var amount:int):
 	CurrentHealth -= amount
 	emit_signal("damaged")
@@ -20,7 +26,7 @@ func damage(var amount:int):
 		CurrentHealth = 0
 		alive = false
 		emit_signal("died")
-		queue_free()
+		get_parent().remove_child(self)
 
 func heal(var amount:int):
 	CurrentHealth += amount

@@ -9,6 +9,7 @@ var ClipSize: int
 onready var globalplayer = get_node("/root/GlobalPlayer").get_player()
 var Anim:AnimationPlayer 
 
+var ModelScene
 var InClip: int
 
 func getAnim():

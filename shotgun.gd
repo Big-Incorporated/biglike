@@ -7,7 +7,6 @@ export var pelletdamage:int = 2
 
 
 var parent: Node2D
-var ModelScene
 
 func _ready():
 	set_weapon_info(13,50,1)

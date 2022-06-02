@@ -22,10 +22,10 @@ var IdleState = State.new()
 var AttackState = State.new()
 var ChaseState = State.new()
 
+onready var globalplayer = get_node("/root/GlobalPlayer").get_player()
 
 func _attack():
 	pass
-
 
 var currentPointIndex = 0
 
@@ -71,6 +71,7 @@ func _aistate_chase_end():
 	pass
 
 func _ready():
+	add_to_group("enemies")
 	
 	if !is_connected("damaged",self,"_on_EnemyBody_damaged"):
 		connect("damaged",self,"_on_EnemyBody_damaged")
@@ -84,19 +85,41 @@ func _ready():
 	ChaseState.init(self,"_aistate_chase_begin","_aistate_chase_update","_aistate_chase_end")
 	AttackState.init(self,"_aistate_attack_begin","_aistate_attack_update","_aistate_attack_end")
 	
-	Target = get_node("/root/GlobalPlayer").get_player()
+	Target = globalplayer
 	
 	AIStateMachine.change_state(IdleState)
 
 func _process(delta):
-	if !is_instance_valid(Target):
-		Target = null
+	if is_instance_valid(Target):
+		if !Target.is_inside_tree():
+			Target = globalplayer
+	elif !is_instance_valid(Target):
+		Target = globalplayer
+	if  !is_instance_valid(globalplayer):
+		get_parent().remove_child(self)
+	elif !globalplayer.is_inside_tree():
+		get_parent().remove_child(self)
 
 func _physics_process(_delta):
 	AIStateMachine.update_state()
 
-func set_target(object: Damageable):
+func set_target(object):
 	Target = object
 
 func _on_EnemyBody_damaged():
 	AIStateMachine.change_state(ChaseState)
+
+func nocollide_player():
+	add_collision_exception_with(globalplayer)
+
+func collide_player():
+	remove_collision_exception_with(globalplayer)
+	
+func die():
+	if IdleState != null:
+		IdleState.destroy()
+	if AttackState != null:
+		AttackState.destroy()
+	if ChaseState != null:
+		ChaseState.destroy()
+	.die()

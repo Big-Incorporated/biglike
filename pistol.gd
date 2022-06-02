@@ -6,9 +6,6 @@ var damage:int = 3
 
 var parent: Node2D
 
-var ModelScene
-
-
 func _ready():
 	set_weapon_info(damage,60,7)
 	ModelScene = preload("res://models/weapons/pistol/hand_cannon.tscn")

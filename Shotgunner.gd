@@ -8,3 +8,5 @@ func _ready():
 func _attack():
 	$Shotgun.shoot()
 
+func die():
+	$Shotgun.queue_free()

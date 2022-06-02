@@ -23,7 +23,7 @@ ChaseRange = 300.0
 position = Vector2( 0, -1 )
 shape = SubResource( 12 )
 
-[node name="Model" type="Node2D" parent="." instance=ExtResource( 3 )]
+[node name="Model" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, -14 )
 
 [node name="Shotgun" type="Node2D" parent="."]
@@ -31,3 +31,4 @@ script = ExtResource( 1 )
 pelletdamage = 1
 
 [connection signal="damaged" from="." to="." method="_on_EnemyBody_damaged"]
+[connection signal="died" from="." to="." method="_on_EnemyBody_died"]

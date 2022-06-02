@@ -28,3 +28,6 @@ func init(object,func1,func2,func3):
 	begin_state = funcref(object,func1)
 	update_state = funcref(object,func2)
 	exit_state = funcref(object,func3)
+
+func destroy():
+	queue_free()
