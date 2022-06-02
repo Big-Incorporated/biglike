@@ -20,7 +20,7 @@ var currentstate
 var RollTimer: Timer
 
 var rolltime = 0.2
-var rollcooldown = 0.5 #IMPLEMENT NEXT
+var rollcooldown = 0.5 
 var speed = 30
 
 onready var ModelBase = $Model/Viewport/model/base
@@ -80,7 +80,7 @@ func _input(event):
 					else:
 						inventoryindex = 0
 					swap_weapon()
-func _process(_delta):
+func _process(delta):
 	if currentstate != state.ROLL:
 		movementVector = Vector2()
 		if Input.is_key_pressed(KEY_W):
@@ -98,7 +98,6 @@ func _process(_delta):
 	match currentstate:
 		state.WALK:
 			ModelBase.rotation.y = -get_angle_to(get_global_mouse_position())
-	
 
 func _physics_process(delta):
 	match currentstate:

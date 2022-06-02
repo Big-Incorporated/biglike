@@ -17,6 +17,7 @@ shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+smoothing_enabled = true
 editor_draw_drag_margin = true
 
 [node name="Model" parent="." instance=ExtResource( 2 )]

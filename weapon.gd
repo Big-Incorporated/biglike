@@ -46,7 +46,7 @@ func shootbullet(damage: int, position: Vector2,screenpos:Vector2,direction: flo
 			result.collider.damage(damage)
 			if result.collider is Enemy:
 				result.collider.set_target(get_parent())
-		tracer(screenpos,result.position)
+		tracer(position,result.position)
 
 func shootprojectile(projectilescene: Resource, position: Vector2,direction: float):
 	var projectile = projectilescene.instance()
