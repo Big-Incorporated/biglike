@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://models/weapons/sword/sord_1.gltf" type="PackedScene" id=1]
+
+[node name="weapon" instance=ExtResource( 1 )]
+transform = Transform( 0.49815, 0, -0.560666, 0, 0.75, 0, 0.560666, 0, 0.49815, 0, 0, 0 )
+
+[node name="handle2" parent="Node2" index="0"]
+transform = Transform( -0.122849, -0.865081, 0.486356, -0.992191, 0.0964208, -0.0791143, 0.0215455, -0.492277, -0.870172, -0.375, 0, -0.0625 )

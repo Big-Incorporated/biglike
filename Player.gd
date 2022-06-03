@@ -10,7 +10,7 @@ var angle_to_mouse
 
 var camera: Camera2D
 
-onready var inventory: Array = [Pistol.new(),Shotgun.new()]
+onready var inventory: Array = [Pistol.new(),Shotgun.new(),Sword.new()]
 onready var invmodels: Array = []
 var inventoryindex: int
 
@@ -24,6 +24,10 @@ var rollcooldown = 0.5
 var speed = 30
 
 onready var ModelBase = $Model/Viewport/model/base
+
+func damage(amount):
+	$ui/health.text = str(CurrentHealth)
+	.damage(amount)
 
 func swap_weapon():
 	var currentweaponmodel = $Model/Viewport/model/base/weapon
@@ -43,6 +47,8 @@ func _roll():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	damage(0)
+	
 	
 	RollTimer = Timer.new()
 	RollTimer.wait_time = rollcooldown
@@ -84,9 +90,9 @@ func _process(delta):
 	if currentstate != state.ROLL:
 		movementVector = Vector2()
 		if Input.is_key_pressed(KEY_W):
-			movementVector.y -= 1
+			movementVector.y -= 0.5
 		if Input.is_key_pressed(KEY_S):
-			movementVector.y += 1
+			movementVector.y += 0.5
 		if Input.is_key_pressed(KEY_A):
 			movementVector.x -= 1
 		if Input.is_key_pressed(KEY_D):
