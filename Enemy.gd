@@ -40,8 +40,11 @@ func _aistate_idle_end():
 func _aistate_attack_begin():
 	pass
 func _aistate_attack_update():
-	_attack()
-	if Target.global_position.distance_to(global_position) > AttackRange &&  Target.global_position.distance_to(global_position) <= ChaseRange:
+	var space_state = get_world_2d().direct_space_state
+	var result = space_state.intersect_ray(global_position,Target.global_position)
+	if result && result.collider == Target:
+		_attack()
+	if !result || (result && result.collider != Target) || Target.global_position.distance_to(global_position) > AttackRange &&  Target.global_position.distance_to(global_position) <= ChaseRange:
 		AIStateMachine.change_state(ChaseState)
 func _aistate_attack_end():
 	pass
@@ -50,8 +53,11 @@ func _aistate_chase_begin():
 	var p = Nav.get_simple_path(global_position,Target.global_position,false)
 	path = p
 func _aistate_chase_update():
-	if Target.global_position.distance_to(global_position) <= AttackRange :
-		AIStateMachine.change_state(AttackState)
+	var space_state = get_world_2d().direct_space_state
+	var result = space_state.intersect_ray(global_position,Target.global_position)
+	if result && result.collider == Target:
+		if Target.global_position.distance_to(global_position) <= AttackRange:
+			AIStateMachine.change_state(AttackState)
 	if global_position.distance_to(path[pathindex]) < $CollisionShape2D.shape.radius && pathindex < path.size():
 		pathindex = 1
 		var p = Nav.get_simple_path(global_position,Target.global_position,false)

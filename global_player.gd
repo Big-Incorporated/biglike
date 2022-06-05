@@ -7,3 +7,5 @@ func set_player(p):
 
 func get_player():
 	return player
+
+onready var tileset = preload("res://tiles/tileset.tres")
