@@ -32,7 +32,9 @@ var heading: Vector2
 func _aistate_idle_begin():
 	pass
 func _aistate_idle_update():
-	if Target.global_position.distance_to(global_position) <= ChaseRange:
+	var space_state = get_world_2d().direct_space_state
+	var result = space_state.intersect_ray(global_position,Target.global_position)
+	if result && result.collider == Target && Target.global_position.distance_to(global_position) <= ChaseRange:
 		AIStateMachine.change_state(ChaseState)
 func _aistate_idle_end():
 	pass
