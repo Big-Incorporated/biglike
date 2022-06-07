@@ -18,9 +18,9 @@ func shoot():
 	Anim.play("shoot",-1,3.0)
 	
 	if parent == globalplayer:
-		shootbullet(damage,global_position,parent.camera.get_camera_screen_center(),get_angle_to(get_global_mouse_position()))
+		shootbullet(damage,global_position,get_angle_to(get_global_mouse_position()))
 	else:
-		shootbullet(damage,global_position,parent.global_position,get_angle_to(parent.Target.global_position))
+		shootbullet(damage,global_position,get_angle_to(parent.Target.global_position))
 	.shoot()
 
 func reload():

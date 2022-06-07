@@ -36,7 +36,7 @@ func tracer(startpos:Vector2,endpos:Vector2):
 	get_tree().root.add_child(tracerline)
 	tracerline.trace(startpos, endpos)
 
-func shootbullet(damage: int, position: Vector2,screenpos:Vector2,direction: float):
+func shootbullet(damage: int, position: Vector2,direction: float):
 	var space_state = get_world_2d().direct_space_state
 	var Spreadradians = rand_range(-deg2rad(Spread), deg2rad(Spread))
 	var endposition = position + Vector2(cos(direction+Spreadradians), sin(direction+Spreadradians)) * AttackRange
@@ -48,7 +48,10 @@ func shootbullet(damage: int, position: Vector2,screenpos:Vector2,direction: flo
 				result.collider.set_target(get_parent())
 		tracer(position,result.position)
 
-func shootprojectile(projectilescene: Resource, position: Vector2,direction: float):
-	var projectile = projectilescene.instance()
-	add_child(projectile)
-	projectile.transform = transform
+func shootprojectile(projectile: Projectile, position: Vector2,direction: float):
+	projectile.Parent = get_parent()
+	projectile.add_to_group("projectiles")
+	get_tree().root.add_child(projectile)
+	projectile.global_position = position
+	var Spreadradians = rand_range(-deg2rad(Spread), deg2rad(Spread))
+	projectile.global_rotation = direction + Spreadradians

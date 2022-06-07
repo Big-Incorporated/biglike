@@ -72,6 +72,8 @@ func _aistate_chase_end():
 
 func _ready():
 	
+	yield(get_tree().create_timer(0.1),"timeout")
+	
 	add_to_group("enemies")
 	
 	if !is_connected("damaged",self,"_on_EnemyBody_damaged"):

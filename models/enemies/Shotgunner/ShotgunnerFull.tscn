@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://shotgun.gd" type="Script" id=1]
-[ext_resource path="res://Shotgunner.gd" type="Script" id=2]
+[ext_resource path="res://weapons/shotgun.gd" type="Script" id=1]
+[ext_resource path="res://enemies/Shotgunner.gd" type="Script" id=2]
 [ext_resource path="res://models/enemies/Shotgunner/shotgunner.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=12]
@@ -9,7 +9,6 @@ radius = 12.0
 
 [node name="EnemyBody" type="KinematicBody2D"]
 position = Vector2( 76, -91 )
-collision_layer = 2
 script = ExtResource( 2 )
 MaxHealth = 10
 NavNode = NodePath("../..")
