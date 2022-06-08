@@ -11,9 +11,9 @@ var HitList = []
 var HitBox : Area2D
 var HitShape : CollisionShape2D
 
-var parent
 
 func _ready():
+	ClipSize = 1
 	ModelScene = preload("res://models/weapons/sword/sword.tscn")
 	
 	parent = get_parent()
@@ -26,7 +26,7 @@ func _ready():
 	HitBox.add_child(HitShape)
 	HitBox.translate(Vector2(0,HitShape.shape.extents.y))
 
-func shoot():
+func _fire():
 	if Anim.is_playing():
 		return
 	else:

@@ -14,8 +14,8 @@ MaxHealth = 10
 NavNode = NodePath("../..")
 Speed = 20.0
 BaseDamage = 10
-AttackRange = 15.0
-ChaseRange = 300.0
+AttackRange = 20.0
+ChaseRange = 35.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -1 )
@@ -27,6 +27,3 @@ position = Vector2( 0, -14 )
 [node name="Shotgun" type="Node2D" parent="."]
 script = ExtResource( 1 )
 pelletdamage = 1
-
-[connection signal="damaged" from="." to="." method="_on_EnemyBody_damaged"]
-[connection signal="died" from="." to="." method="_on_EnemyBody_died"]

@@ -6,7 +6,7 @@ func _ready():
 	$Shotgun.getAnim()
 
 func _attack():
-	$Shotgun.shoot()
+	$Shotgun._fire()
 
 func die():
 	$Shotgun.queue_free()

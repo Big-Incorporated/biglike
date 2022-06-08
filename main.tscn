@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://tiles/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://models/enemies/Shotgunner/ShotgunnerFull.tscn" type="PackedScene" id=2]
 [ext_resource path="res://CreateTilemapColliders.gd" type="Script" id=3]
 [ext_resource path="res://floor.gd" type="Script" id=4]
 [ext_resource path="res://models/players/PlayerFull.tscn" type="PackedScene" id=5]
+[ext_resource path="res://items/ShotgunPickup.tscn" type="PackedScene" id=6]
 
 [node name="Node2D" type="Node2D"]
 
@@ -33,31 +34,14 @@ format = 1
 tile_data = PoolIntArray( -1638404, 2, 0, -1638403, 2, 0, -1638402, 2, 0, -1638401, 2, 0, -1703936, 2, 0, -1703935, 2, 0, -1703934, 2, 0, -1703933, 2, 0, -1703932, 2, 0, -1703931, 2, 0, -1703930, 2, 0, -1703929, 2, 0, -1703928, 2, 0, -1703927, 2, 0, -1703926, 2, 0, -1703925, 2, 0, -1703924, 2, 0, -1703923, 2, 0, -1703922, 2, 0, -1703921, 2, 0, -1703920, 2, 0, -1703919, 2, 0, -1572868, 2, 0, -1638383, 2, 0, -1507332, 2, 0, -1572847, 2, 0, -1441796, 2, 0, -1507311, 2, 0, -1376260, 2, 0, -1441775, 2, 0, -1310724, 2, 0, -1376239, 2, 0, -1245188, 2, 0, -1245187, 2, 0, -1245186, 2, 0, -1245185, 2, 0, -1310720, 2, 0, -1310703, 2, 0, -1179652, 2, 0, -1245167, 2, 0, -1114116, 2, 0, -1179631, 2, 0, -1048580, 2, 0, -1114110, 2, 0, -1114109, 2, 0, -1114108, 2, 0, -1114107, 2, 0, -1114106, 2, 0, -1114095, 2, 0, -983044, 2, 0, -1048559, 2, 0, -917508, 2, 0, -983030, 2, 0, -983023, 2, 0, -851972, 2, 0, -917494, 2, 0, -917487, 2, 0, -786436, 2, 0, -851958, 2, 0, -851951, 2, 0, -720900, 2, 0, -786422, 2, 0, -786415, 2, 0, -655364, 2, 0, -720886, 2, 0, -720879, 2, 0, -589828, 2, 0, -655350, 2, 0, -655343, 2, 0, -524292, 2, 0, -524289, 2, 0, -589824, 2, 0, -589823, 2, 0, -589822, 2, 0, -589821, 2, 0, -589820, 2, 0, -589819, 2, 0, -589818, 2, 0, -589817, 2, 0, -589816, 2, 0, -589815, 2, 0, -589814, 2, 0, -589813, 2, 0, -589812, 2, 0, -589811, 2, 0, -589810, 2, 0, -589809, 2, 0, -589808, 2, 0, -589807, 2, 0, -458756, 2, 0, -458753, 2, 0, -393220, 2, 0, -393217, 2, 0, -327686, 2, 0, -327685, 2, 0, -327684, 2, 0, -327681, 2, 0, -393216, 2, 0, -262150, 2, 0, -327680, 2, 0, -196614, 2, 0, -262144, 2, 0, -131078, 2, 0, -196608, 2, 0, -65542, 2, 0, -131072, 2, 0, -6, 2, 0, -65536, 2, 0, 65530, 2, 0, 65531, 2, 0, 65532, 2, 0, 65533, 2, 0, 65534, 2, 0, 65535, 2, 0, 0, 2, 0 )
 
 [node name="PlayerBody" parent="Navigation2D/YSort" instance=ExtResource( 5 )]
-
-[node name="ui" type="CanvasLayer" parent="Navigation2D/YSort/PlayerBody"]
-
-[node name="health" type="RichTextLabel" parent="Navigation2D/YSort/PlayerBody/ui"]
-anchor_left = 0.129
-anchor_top = 0.77
-anchor_right = 0.167
-anchor_bottom = 0.837
-margin_left = -0.0960083
-margin_top = -3.05176e-05
-margin_right = -0.00801086
-margin_bottom = -0.200012
-visible_characters = 50
-
-[node name="EnemyBody" parent="Navigation2D/YSort" instance=ExtResource( 2 )]
-position = Vector2( -94, -82 )
-AttackRange = 20.0
-ChaseRange = 40.0
+MaxHealth = 100
 
 [node name="EnemyBody2" parent="Navigation2D/YSort" instance=ExtResource( 2 )]
-position = Vector2( 614, -364 )
-AttackRange = 20.0
+position = Vector2( 621, -373 )
 ChaseRange = 40.0
 
 [node name="EnemyBody3" parent="Navigation2D/YSort" instance=ExtResource( 2 )]
 position = Vector2( 798, -2 )
-AttackRange = 20.0
 ChaseRange = 40.0
+
+[node name="ShotgunPickup" parent="Navigation2D/YSort" instance=ExtResource( 6 )]

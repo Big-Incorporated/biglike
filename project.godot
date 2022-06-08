@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot_editor_discord_presence/Discord RPC/util/IPCUtil.gd"
 }, {
+"base": "Area2D",
+"class": "Item",
+"language": "GDScript",
+"path": "res://items/item.gd"
+}, {
 "base": "Weapon",
 "class": "Pistol",
 "language": "GDScript",
@@ -88,6 +93,11 @@ _global_script_classes=[ {
 "class": "Shotgun",
 "language": "GDScript",
 "path": "res://weapons/shotgun.gd"
+}, {
+"base": "Item",
+"class": "ShotgunPickup",
+"language": "GDScript",
+"path": "res://items/ShotgunPickup.gd"
 }, {
 "base": "Enemy",
 "class": "Shotgunner",
@@ -159,6 +169,7 @@ _global_script_class_icons={
 "IPCPayload": "",
 "IPCPipe": "",
 "IPCUtil": "",
+"Item": "",
 "Pistol": "",
 "Player": "",
 "Projectile": "",
@@ -166,6 +177,7 @@ _global_script_class_icons={
 "RichPresenceButton": "",
 "RichPresenceModule": "",
 "Shotgun": "",
+"ShotgunPickup": "",
 "Shotgunner": "",
 "State": "",
 "StateMachine": "",

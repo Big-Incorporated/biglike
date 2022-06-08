@@ -10,8 +10,11 @@ var angle_to_mouse
 
 var camera: Camera2D
 
-onready var inventory: Array = [Pistol.new(),Shotgun.new(),Sword.new()]
+onready var inventory: Array = [Sword.new(),Pistol.new()]
 onready var invmodels: Array = []
+
+var Ammo: Dictionary = {}
+
 var inventoryindex: int
 
 enum state {WALK,ROLL}
@@ -49,7 +52,6 @@ func _roll():
 func _ready():
 	damage(0)
 	
-	
 	RollTimer = Timer.new()
 	RollTimer.wait_time = rollcooldown
 	RollTimer.one_shot = true
@@ -63,6 +65,7 @@ func _ready():
 	
 	for n in range(0,inventory.size()):
 		add_child(inventory[n])
+		Ammo[inventory[n].AmmoType] = inventory[n].ClipSize
 		invmodels.append(inventory[n].ModelScene.instance())
 		
 	swap_weapon()
@@ -72,8 +75,9 @@ func _input(event):
 		if event.pressed:
 			match event.button_index:
 				BUTTON_LEFT:
-					if currentstate != state.ROLL:
-						inventory[inventoryindex].shoot()
+					if currentstate != state.ROLL && Ammo.has(inventory[inventoryindex].AmmoType):
+						if Ammo[inventory[inventoryindex].AmmoType] > 0:
+							inventory[inventoryindex]._fire()
 				BUTTON_WHEEL_UP:
 					if inventoryindex >0:
 						inventoryindex-=1

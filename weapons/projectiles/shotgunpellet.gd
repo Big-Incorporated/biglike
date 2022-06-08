@@ -1,6 +1,6 @@
 extends Projectile
 
-var speed = 500
+var speed = 1000
 
 func _process(delta):
 	global_position += (Vector2(cos(global_rotation),sin(global_rotation)) * delta * speed)

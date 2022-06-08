@@ -5,20 +5,19 @@ class_name Shotgun
 export var numpellets:int = 10
 export var pelletdamage:int = 2
 
-var parent: Node2D
+
 
 onready var projectilescene = preload("res://weapons/projectiles/shotgunpellet.tscn")
 
 func _ready():
+	AmmoType = "shells"
 	set_weapon_info(13,50,1)
 	ModelScene = preload("res://models/weapons/dbshotgun/dbshotgun.tscn")
-	parent = get_parent()
 
-func shoot():
+func _fire():
 	if Anim.is_playing():
 		return
-	else:
-		Anim.play("animationshotgunshoot")
+	Anim.play("animationshotgunshoot")
 	
 	if parent == globalplayer:
 		for n in numpellets:
@@ -26,9 +25,9 @@ func shoot():
 	else:
 		for n in numpellets:
 			shootprojectile(projectilescene.instance(),global_position,get_angle_to(parent.Target.global_position))
-	.shoot()
+	._fire()
 
-func reload():
+func _reload():
 	yield( Anim, "animation_finished" )
 	Anim.play("animationshotgunreload")
-	.reload()
+	._reload()
